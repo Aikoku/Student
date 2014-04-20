@@ -58,8 +58,19 @@ public class Student {
         }
     }
     
-      public static String getSecName(Student student){
+    public static int getMark1(Student student){
+        return student.getMark1();
+    }    
+    public static int getMark2(Student student){
+        return student.getMark2();
+    }
+
+    public static String getSecName(Student student) {
         return student.name;
+    }
+    
+    public static boolean getPass(Student student){
+        return student.pass;
     }
 
     public String getName() {
@@ -111,7 +122,7 @@ public class Student {
         } else {
             System.out.println("Студент " + student.name + " не переведен на след. курс");
         }
-    }  
+    }
 
     @Override
     public String toString() {
@@ -122,20 +133,20 @@ public class Student {
 
     public static void main(String[] args) {
         Student std1 = new Student("Lopesman", 4, 5);
-        Student std2 = new Student("Kurotchkiman", 3, 5);
-        
+        Student std2 = new Student("Kurotchkiman", 5, 5);
+
         System.out.println("std1 = " + std1);
         System.out.println("ave = " + averageMark(std2));
         bestStudent(std1, std2);
         passStudent(std2);
-        Student std3 = new Student("Ortisman", 1, 4);
+        Student std3 = new Student("Ortisman", 0, 4);
         Student std4 = new Student("Nikolajman", 4, 5);
-        Student std5 = new Student("Mishinman", 4, 4);
+        Student std5 = new Student("Mishinman", 1, 4);
         Student std6 = new Student("Gelsten", 1, 2);
-        
+
         ArrayList<Student> group = new ArrayList();
         group.add(std1);
-        
+
         group.add(std2);
         Group.addStudentToGroup(group, std3);
         Group.removeStudentFromGroup(group, std2);
@@ -145,22 +156,29 @@ public class Student {
         Group.addStudentToGroup(group, std5);
         Group.addStudentToGroup(group, std6);
         Group.showGroup(group);
-        
+
         System.out.println("===========");
-        
-        Student std ;
+
         String secName = group.get(4).getName();
-        System.out.println(""+secName);
-        //Student std7 = group.get(1);
+        System.out.println("" + secName);
         
+        double x = Group.averageGroup(group);
+        System.out.println("averageGroup = "+x);
+
+        Group.searchByStudentName(group, "Mishinman");
+        Group.bestStudent(group);
+        Group.debtStudent(group);
+        Group.bestAverageStudent(group);
+        //Student std7 = group.get(1);
+
 //        String name = 
 //        System.out.println("name = "+name);
-        
     }
 
 }
 
 class Group {
+
     public String groupName;
     public ArrayList group;
 
@@ -179,14 +197,13 @@ class Group {
     public void setGroup(ArrayList group) {
         this.group = group;
     }
-    
 
 //    public static void showGroup(Student[] group) {
 //        for (int i = 0; i < group.length; i++) {
 //            System.out.println(group[i]);
 //        }
 //    }
-    public static void showGroup(ArrayList group){
+    public static void showGroup(ArrayList group) {
         for (Object group1 : group) {
             System.out.println(group1);
         }
@@ -195,25 +212,99 @@ class Group {
     public static void addStudentToGroup(ArrayList group, Student student) {
         group.add(student);
     }
-    
-    public static void removeStudentFromGroup(ArrayList group, Student student){
+
+    public static void removeStudentFromGroup(ArrayList group, Student student) {
         group.remove(student);
     }
+
+    public static String getName(Student student) {
+        return Student.getSecName(student);
+    }
     
-    public static void searchByStudentName(ArrayList group, Student student){
-        Student std ;
-        String name = group.get(1).toString();
-        System.out.println("name = "+name);
-        for(int i = 0;i<group.size();i++){
-//            std = group.toArray(x);
-//            if(){
-//                
-//            }
+    public static boolean isPass(Student student){
+        return Student.getPass(student);
+    }
+
+    public static void searchByStudentName(ArrayList group, String searchName) {
+        for (int i = 0; i < group.size(); i++) {
+            String secName = getName((Student) group.get(i));
+            if (secName.equalsIgnoreCase(searchName)) {
+                System.out.println(group.get(i));
+                break;
+            }
         }
     }
     
-    public static void searchSecName(){
+    public static void whoIsPass(ArrayList group){
+       // System.out.println("поиск всех студентов группе , переведенных на следующий курс");
+        for (int i = 0; i < group.size(); i++) {
+            boolean pass = isPass((Student) group.get(i));
+            if(pass){
+                System.out.println(group.get(i));
+            }
+        }
+    }
+    
+    public static double aveStudent(Student student){
+        return Student.averageMark(student);
+    }
+    
+    public static double averageGroup (ArrayList group){
+        //System.out.println("нахождение среднего балла группы");
+        double average=0;
+        int count = 1;
+        for(int i =0; i<group.size();i++){
+            double aveStd = aveStudent((Student) group.get(i));
+            average+=aveStd;
+            count++;
+        }
+        return average/count;
+    }
+    
+    public static void bestStudent(ArrayList group){
+        //System.out.println("выдача на экран фамилии самого успешного студента группы ");
+        int count = 0;
+        double best=0;
+        for(int i =0; i<group.size();i++){
+            double bestMax = aveStudent((Student) group.get(i));
+            
+            if(best<bestMax){
+                best=bestMax;
+                count=i;
+            }
+            
+        }
+        System.out.println(getName((Student) group.get(count)));
+    }
+    
+    public static int getMark1(Student student){
+        return Student.getMark1(student);
+    }
+    public static int getMark2(Student student){
+        return Student.getMark2(student);
+    }
+    
+    
+    public static void debtStudent(ArrayList group){
+        //System.out.println("вывод на экран студентов, у которых есть задолжность по одному предмету");
+        for(int i =0; i<group.size();i++){
+         if((getMark1((Student) group.get(i))==0)|(getMark1((Student) group.get(i))==0)){
+             System.out.println(getName((Student) group.get(i)));
+         }              
+        }        
+    }
+    
+    public static void bestAverageStudent(ArrayList group){
+        //System.out.println("вывод на экран студентов группы, чей личный средний балл выше среднего балла группы ");
+         for(int i =0; i<group.size();i++){
+             if(averageGroup(group)<aveStudent((Student)group.get(i))){
+                 System.out.println(getName((Student) group.get(i)));
+             }
+         }
         
     }
     
+    
+
+
 }
