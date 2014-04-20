@@ -139,8 +139,8 @@ public class Student {
         String name = group.get(1).toString();
         //Student std7 = group.get(1);
         
-        String name = 
-        System.out.println("name = "+name);
+//        String name = 
+//        System.out.println("name = "+name);
         
     }
 
