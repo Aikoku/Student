@@ -136,6 +136,7 @@ public class Student {
         System.out.println("===========");
         
         Student std ;
+        
         String name = group.get(1).toString();
         //Student std7 = group.get(1);
         
