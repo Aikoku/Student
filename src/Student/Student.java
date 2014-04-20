@@ -57,6 +57,18 @@ public class Student {
             System.out.println("Оценки должны быть в диапозоне от 1 до 5");
         }
     }
+    
+      public static String getSecName(Student student){
+        return student.name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public Student(String name, int mark1, int mark2, boolean pass) {
         this.setMark1(mark1);
@@ -99,7 +111,7 @@ public class Student {
         } else {
             System.out.println("Студент " + student.name + " не переведен на след. курс");
         }
-    }
+    }  
 
     @Override
     public String toString() {
@@ -121,8 +133,9 @@ public class Student {
         Student std5 = new Student("Mishinman", 4, 4);
         Student std6 = new Student("Gelsten", 1, 2);
         
-        ArrayList group = new ArrayList();
+        ArrayList<Student> group = new ArrayList();
         group.add(std1);
+        
         group.add(std2);
         Group.addStudentToGroup(group, std3);
         Group.removeStudentFromGroup(group, std2);
@@ -136,8 +149,8 @@ public class Student {
         System.out.println("===========");
         
         Student std ;
-        
-        String name = group.get(1).toString();
+        String secName = group.get(4).getName();
+        System.out.println(""+secName);
         //Student std7 = group.get(1);
         
 //        String name = 
@@ -203,7 +216,4 @@ class Group {
         
     }
     
-    public static void main(String[] args) {
-        
-    }
 }
