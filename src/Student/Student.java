@@ -19,8 +19,7 @@ public class Student {
         return pass;
     }
 
-    public void setPass(boolean pass) {
-        //if(checkPass(this.getMark1(), this.getMark2())){
+    public void setPass(boolean pass) {        
         if (checkPass(mark1, mark2)) {
             pass = true;
             this.pass = pass;
@@ -28,7 +27,6 @@ public class Student {
         } else {
             //System.out.println("Студент не переведен на след. курс");
         }
-
     }
 
     public static boolean checkPass(int mark1, int mark2) {
@@ -97,6 +95,10 @@ public class Student {
         this.setPass(pass);
     }
 
+    public Student(Student anotherStudent) {
+        
+    }
+
     public static boolean checkMark(int mark) {
         return (MIN_MARK <= mark) && (mark <= MAX_MARK);
     }
@@ -108,6 +110,13 @@ public class Student {
     public static double averageMark(Student student) {
         return ((double) (student.mark1 + student.mark2) / 2);
     }
+
+//    public double compareTo(Student compare){
+//        
+//        double compareMark;
+//        compareMark = ((Student)averageMark(this));
+//    }
+
 
     public static void bestStudent(Student student1, Student student2) {
 
@@ -131,51 +140,6 @@ public class Student {
         return "Студент: " + name + " Оценки[за первый предмет = " + mark1 + ", за второй предмет = "
                 + mark2 + "] На следующий курс переведен = " + pass;
     }
-//////////////////////////////////////////////
-
-//    public static void main(String[] args) {
-//        Student std1 = new Student("Lopesman", 4, 5);
-//        Student std2 = new Student("Kurotchkiman", 5, 5);
-//
-//        System.out.println("std1 = " + std1);
-//        System.out.println("ave = " + averageMark(std2));
-//        bestStudent(std1, std2);
-//        passStudent(std2);
-//        Student std3 = new Student("Ortisman", 0, 4);
-//        Student std4 = new Student("Nikolajman", 4, 5);
-//        Student std5 = new Student("Mishinman", 1, 4);
-//        Student std6 = new Student("Gelsten", 1, 2);
-//
-//        ArrayList<Student> group = new ArrayList();
-//        group.add(std1);
-//
-//        group.add(std2);
-//        Group.addStudentToGroup(group, std3);
-//        Group.removeStudentFromGroup(group, std2);
-//        //Group.showGroup(group);
-//        Group.addStudentToGroup(group, std2);
-//        Group.addStudentToGroup(group, std4);
-//        Group.addStudentToGroup(group, std5);
-//        Group.addStudentToGroup(group, std6);
-//        Group.showGroup(group);
-//
-//        System.out.println("===========");
-//
-//        String secName = group.get(4).getName();
-//        System.out.println("" + secName);
-//        
-//        double x = Group.averageGroup(group);
-//        System.out.println("averageGroup = "+x);
-//
-//        Group.searchByStudentName(group, "Mishinman");
-//        Group.bestStudent(group);
-//        Group.debtStudent(group);
-//        Group.bestAverageStudent(group);
-//        //Student std7 = group.get(1);
-//
-////        String name = 
-////        System.out.println("name = "+name);
-//    }
 }
 
 class Group {
@@ -335,23 +299,18 @@ class Group {
                 System.out.println(getName((Student) group.get(i)));
             }
         }
-
     }
 }
 
 class DemoStudentGroup {
 
     public static void main(String[] args) {
-//        System.out.println("std1 = " + std1);
-//        System.out.println("ave = " + averageMark(std2));
-//        bestStudent(std1, std2);
-//        passStudent(std2);
-
         Student std1 = new Student("Lopesman", 4, 5);
         Student std2 = new Student("Kurotchkiman", 5, 5);
         Student std3 = new Student("Ortisman", 0, 4);
         Student std4 = new Student("Nikolajman", 4, 5);
-        Student std5 = new Student("Mishinman", 1, 0);
+        Student std5 = new Student("Mishinman", 3, 0);
+
         Student std6 = new Student("Gelsten", 3, 2);
         Student std7 = new Student("Einshtein", 5, 5);
         Student std8 = new Student("Azimov", 5, 4);
@@ -359,14 +318,15 @@ class DemoStudentGroup {
         Student std10 = new Student("Berman", 1, 2);
 
         ArrayList<Student> group1 = new ArrayList();
-        ArrayList<Student> group2 = new ArrayList();
-//        Group.addStudentToGroup(group, std6);
         Group.addStudentToGroup(group1, std1, std2, std3, std4, std5);
-        Group.addStudentToGroup(group2, std6, std7, std8, std9, std10);
         System.out.println("Первая группа");
         Group.showGroup(group1);
+
+        ArrayList<Student> group2 = new ArrayList();
+        Group.addStudentToGroup(group2, std6, std7, std8, std9, std10);
         System.out.println("Вторая группа");
         Group.showGroup(group2);
+
         //Метод Лучшая группа
         if (Group.averageGroup(group1) < Group.averageGroup(group2)) {
             System.out.println("У второй группы успеваемость выше (средний бал " + Group.averageGroup(group2) + ")");
@@ -391,21 +351,9 @@ class DemoStudentGroup {
             Group.bestStudent(group1);
         }
 
-//        System.out.println("===========");
-//
-//        String secName = group.get(4).getName();
-//        System.out.println("" + secName);
-//        
-//        double x = Group.averageGroup(group);
-//        System.out.println("averageGroup = "+x);
-//
-//        Group.searchByStudentName(group, "Mishinman");
-//        Group.bestStudent(group);
-//        Group.debtStudent(group);
-//        Group.bestAverageStudent(group);
-//        //Student std7 = group.get(1);
-//
-////        String name = 
-////        System.out.println("name = "+name);
+//        System.out.println("TEST "+Group.aveStudent(Student.averageMark()));
+//        Collections.sort(averageMark(Group.aveStudent(group1)));
+//        Collections.sort(group1);
+
     }
 }
